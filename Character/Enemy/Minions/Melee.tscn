@@ -1,0 +1,69 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Character/Enemy/Minions/Melee.gd" type="Script" id=1]
+[ext_resource path="res://Character/Enemy/Enemy_Base.png" type="Texture" id=2]
+
+[sub_resource type="CircleShape2D" id=1]
+
+[sub_resource type="CircleShape2D" id=2]
+radius = 50.641
+
+[sub_resource type="CircleShape2D" id=3]
+radius = 59.9126
+
+[sub_resource type="CircleShape2D" id=4]
+radius = 25.0
+
+[node name="Melee" type="KinematicBody2D"]
+collision_layer = 2
+collision_mask = 7
+script = ExtResource( 1 )
+Speed = 200
+AttackRange = 50
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+[node name="BodyShape" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
+
+[node name="Base" type="Sprite" parent="."]
+show_behind_parent = true
+scale = Vector2( 1, 0.993687 )
+texture = ExtResource( 2 )
+
+[node name="HealthBar" type="TextureProgress" parent="Base"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -52.0
+margin_top = -32.0
+margin_right = -12.0
+margin_bottom = 8.0
+
+[node name="Patrol Timer" type="Timer" parent="."]
+wait_time = 3.0
+autostart = true
+
+[node name="Detection" type="Area2D" parent="."]
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Detection"]
+shape = SubResource( 2 )
+
+[node name="Knockback Timer" type="Timer" parent="."]
+
+[node name="Attack Range" type="Area2D" parent="."]
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Attack Range"]
+shape = SubResource( 3 )
+
+[node name="Attack Area" type="Area2D" parent="."]
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Attack Area"]
+shape = SubResource( 4 )
+[connection signal="timeout" from="Patrol Timer" to="." method="_on_Patrol_Timer_timeout"]
+[connection signal="body_entered" from="Detection" to="." method="_on_Detection_body_entered"]
+[connection signal="body_entered" from="Attack Range" to="." method="_on_Attack_Range_body_entered"]
+[connection signal="body_exited" from="Attack Range" to="." method="_on_Attack_Range_body_exited"]
+[connection signal="body_entered" from="Attack Area" to="." method="_on_Attack_Area_body_entered"]

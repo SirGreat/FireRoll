@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/Sword Slash Sound Effect.wav-b0da0c536c99438f067f61a10e32e4df.sample"
+
+[deps]
+
+source_file="res://Assets/Audio/Sword Slash Sound Effect.wav"
+dest_files=[ "res://.import/Sword Slash Sound Effect.wav-b0da0c536c99438f067f61a10e32e4df.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=0

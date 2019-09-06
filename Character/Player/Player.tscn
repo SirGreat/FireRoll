@@ -1,0 +1,209 @@
+[gd_scene load_steps=16 format=2]
+
+[ext_resource path="res://Character/Player/player.gd" type="Script" id=1]
+[ext_resource path="res://Character/Player/Assets/Link_Spritesheet.png" type="Texture" id=2]
+[ext_resource path="res://Assets/Audio/Hurt.wav" type="AudioStream" id=3]
+[ext_resource path="res://Assets/Audio/Pickup_Coin.wav" type="AudioStream" id=4]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 15.0
+
+[sub_resource type="Animation" id=2]
+length = 0.8
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("Base:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 1 ]
+}
+
+[sub_resource type="Animation" id=3]
+length = 0.8
+tracks/0/type = "value"
+tracks/0/path = NodePath("Base:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 3, 4, 5, 4 ]
+}
+
+[sub_resource type="Animation" id=4]
+length = 0.8
+tracks/0/type = "value"
+tracks/0/path = NodePath("Base:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 6, 7, 8, 7 ]
+}
+
+[sub_resource type="Animation" id=5]
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("Base:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 0 ]
+}
+
+[sub_resource type="Animation" id=6]
+resource_name = "Up"
+length = 0.8
+tracks/0/type = "value"
+tracks/0/path = NodePath("Base:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 9, 10, 11, 10 ]
+}
+
+[sub_resource type="Animation" id=7]
+resource_name = "Take_Damage"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/path = NodePath("Base:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 0, 0, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 0, 0, 1 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Base/Particles2D:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.1, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ false, true, false ]
+}
+
+[sub_resource type="CapsuleShape2D" id=8]
+radius = 14.8206
+height = 31.0274
+
+[sub_resource type="Curve" id=9]
+_data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 0.98416, 0.367083 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=10]
+curve = SubResource( 9 )
+
+[sub_resource type="ParticlesMaterial" id=11]
+emission_shape = 1
+emission_sphere_radius = 5.0
+flag_disable_z = true
+spread = 180.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 150.0
+initial_velocity_random = 0.3
+angular_velocity = -4.10638e-020
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+scale = 3.0
+scale_curve = SubResource( 10 )
+color = Color( 1, 0, 0, 1 )
+
+[node name="Player" type="KinematicBody2D"]
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_group_": true
+}
+Name = "Player"
+Health = 100
+Speed = 300
+
+[node name="HitBox" type="CollisionShape2D" parent="."]
+position = Vector2( 0, 20 )
+shape = SubResource( 1 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/Down = SubResource( 2 )
+anims/Left = SubResource( 3 )
+anims/Right = SubResource( 4 )
+anims/Setup = SubResource( 5 )
+anims/Up = SubResource( 6 )
+
+[node name="Effects" type="AnimationPlayer" parent="."]
+anims/Take_Damage = SubResource( 7 )
+
+[node name="Area2D" type="Area2D" parent="."]
+visible = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource( 8 )
+
+[node name="Base" type="Sprite" parent="."]
+show_behind_parent = true
+scale = Vector2( 2, 2 )
+texture = ExtResource( 2 )
+vframes = 4
+hframes = 3
+region_rect = Rect2( 10, 10, 100, 100 )
+
+[node name="Particles2D" type="Particles2D" parent="Base"]
+visible = false
+show_behind_parent = true
+amount = 30
+lifetime = 0.3
+explosiveness = 1.0
+process_material = SubResource( 11 )
+
+[node name="Weapon" type="Node2D" parent="Base"]
+scale = Vector2( 0.5, 0.5 )
+
+[node name="Camera2D" type="Camera2D" parent="."]
+visible = false
+current = true
+limit_left = 0
+limit_top = 0
+smoothing_enabled = true
+
+[node name="Hurt" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 3 )
+
+[node name="WeaponPos" type="Position2D" parent="."]
+position = Vector2( -15.5739, 17.3058 )
+
+[node name="WeaponPos_Right" type="Position2D" parent="."]
+position = Vector2( -4.55122, 21.8359 )
+
+[node name="WeaponPos_Left" type="Position2D" parent="."]
+position = Vector2( -4.41507, 16.1803 )
+
+[node name="Coins PickUp" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 4 )

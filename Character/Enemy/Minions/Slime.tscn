@@ -1,0 +1,215 @@
+[gd_scene load_steps=14 format=2]
+
+[ext_resource path="res://Character/Enemy/Minions/Melee.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Character/Enemy/Minions/Slime.gd" type="Script" id=2]
+[ext_resource path="res://Character/Enemy/Minions/Assets/Slime Mob Spritesheet.png" type="Texture" id=3]
+[ext_resource path="res://HUD/Assets/Health_Bar_Under.png" type="Texture" id=4]
+[ext_resource path="res://HUD/Assets/Health_Bar_Progress.png" type="Texture" id=5]
+
+[sub_resource type="Animation" id=1]
+resource_name = "Attack"
+length = 0.6
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("Base:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.15, 0.25, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 9, 10, 11, 12 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Attack Area/CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ true, false, true ]
+}
+
+[sub_resource type="Animation" id=2]
+resource_name = "Death"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/path = NodePath("Base:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ 13, 14, 15 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("BodyShape:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "Move_Left"
+length = 0.8
+tracks/0/type = "value"
+tracks/0/path = NodePath("Base:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 3 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Base:flip_h")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+
+[sub_resource type="Animation" id=4]
+resource_name = "Move_Right"
+length = 0.8
+tracks/0/type = "value"
+tracks/0/path = NodePath("Base:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 3 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Base:flip_h")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+
+[sub_resource type="Animation" id=5]
+resource_name = "Setup"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("Base:flip_h")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+
+[sub_resource type="Animation" id=6]
+resource_name = "Take_Damage"
+length = 0.4
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("Base:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.15, 0.25 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ 4, 5, 6 ]
+}
+
+[sub_resource type="CircleShape2D" id=7]
+radius = 25.0
+
+[sub_resource type="CircleShape2D" id=8]
+radius = 20.0
+
+[node name="Slime" instance=ExtResource( 1 )]
+script = ExtResource( 2 )
+Health = 100
+Speed = 150
+Damage = 10
+DetectionRadius = 500
+BaseValue = 10
+ValueRange = 3
+
+[node name="AnimationPlayer" parent="." index="0"]
+anims/Attack = SubResource( 1 )
+anims/Death = SubResource( 2 )
+anims/Move_Left = SubResource( 3 )
+anims/Move_Right = SubResource( 4 )
+anims/Setup = SubResource( 5 )
+anims/Take_Damage = SubResource( 6 )
+
+[node name="BodyShape" parent="." index="1"]
+visible = false
+shape = SubResource( 7 )
+
+[node name="Base" parent="." index="2"]
+position = Vector2( 0, -15 )
+scale = Vector2( 1, 1 )
+texture = ExtResource( 3 )
+vframes = 4
+hframes = 4
+frame = 12
+
+[node name="HealthBar" parent="Base" index="0"]
+anchor_left = 0.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -20.5041
+margin_top = -51.6212
+margin_right = 20.4959
+margin_bottom = -80.6212
+rect_scale = Vector2( 0.5, 0.5 )
+value = 80.0
+texture_under = ExtResource( 4 )
+texture_progress = ExtResource( 5 )
+
+[node name="Detection" parent="." index="4"]
+visible = false
+
+[node name="Attack Range" parent="." index="6"]
+visible = false
+
+[node name="Attack Area" parent="." index="7"]
+visible = false
+
+[node name="CollisionShape2D" parent="Attack Area" index="0"]
+position = Vector2( -60, 0 )
+shape = SubResource( 8 )
+disabled = true
