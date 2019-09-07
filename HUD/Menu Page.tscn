@@ -1,9 +1,27 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://HUD/Menu Page.gd" type="Script" id=1]
-[ext_resource path="res://Assets/Home Page.png" type="Texture" id=2]
-[ext_resource path="res://Assets/Button_Default.png" type="Texture" id=3]
-[ext_resource path="res://Assets/Button_Hover.png" type="Texture" id=4]
+[ext_resource path="res://Assets/Home Page v2.png" type="Texture" id=2]
+[ext_resource path="res://Assets/Moving Clouds.png" type="Texture" id=3]
+[ext_resource path="res://Assets/Button_Default.png" type="Texture" id=4]
+[ext_resource path="res://Assets/Button_Hover.png" type="Texture" id=5]
+
+[sub_resource type="Animation" id=1]
+resource_name = "Moving Clouds"
+length = 60.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 60 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1024.42, 310.211 ), Vector2( 0, 310.211 ) ]
+}
 
 [node name="Menu Page" type="CanvasLayer"]
 pause_mode = 2
@@ -14,6 +32,15 @@ margin_right = 1024.0
 margin_bottom = 600.0
 texture = ExtResource( 2 )
 expand = true
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 323.743, 310.211 )
+scale = Vector2( 2.13408, 2.20505 )
+z_as_relative = false
+texture = ExtResource( 3 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+"anims/Moving Clouds" = SubResource( 1 )
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 anchor_top = 0.5
@@ -33,13 +60,15 @@ custom_constants/separation = 10
 pause_mode = 2
 margin_right = 256.0
 margin_bottom = 64.0
-texture_normal = ExtResource( 3 )
-texture_pressed = ExtResource( 3 )
-texture_hover = ExtResource( 4 )
+texture_normal = ExtResource( 4 )
+texture_pressed = ExtResource( 4 )
+texture_hover = ExtResource( 5 )
 
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer/Play Button"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_top = -1.0
+margin_bottom = -1.0
 text = "PLAY"
 align = 1
 valign = 1
@@ -48,8 +77,8 @@ valign = 1
 margin_top = 74.0
 margin_right = 256.0
 margin_bottom = 138.0
-texture_normal = ExtResource( 3 )
-texture_hover = ExtResource( 4 )
+texture_normal = ExtResource( 4 )
+texture_hover = ExtResource( 5 )
 
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer/Quit Button"]
 anchor_right = 1.0
