@@ -3,6 +3,8 @@ extends CanvasLayer
 #var MAINSCENE = preload("res://Main.tscn")
 
 func _ready():
+	#Animate the background
+	$AnimationPlayer.play("Moving Clouds")
 	pass
 
 
